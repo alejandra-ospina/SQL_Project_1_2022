@@ -1,9 +1,32 @@
 ## For this analysis, I am using BigQuery. I uploaded information from two CSV files about physical activity tracked by Fitbit from Kaggle into a table in BigQuery. Then I wrote the following SQL to process the data.
 
-## Begin with revewing data such as finding duplicates
+##Begin with revewing data such as counting duplicates
 SELECT COUNT(DISTINCT ID)
 FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` 
  
-
+##Removing Duplicates of ID
 SELECT DISTINCT ID
 FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` 
+
+##Checking Length of ID
+SELECT LENGTH(ID) AS numbers_in_ID
+FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` 
+
+##Arranging Ids  by descending value of total steps during their daily activities
+SELECT ID, TotalSteps
+FROM first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table
+ORDER BY TotalSteps DESC
+
+##Finding the ID with the maximum steps by using the maximum steps found in the previous query:
+SELECT Id
+FROM first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table
+WHERE TotalSteps= 36019
+Row Id 1 1624580081
+
+##Counting how many times there was a total of steps equal to or above 3,000
+SELECT COUNTIF(TotalSteps>=3000)
+FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` 
+
+##Checking all columns between both files that have the same ID
+SELECT *
+FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` JOIN `first-sql-to-github1.kaggle_fitbit_data.dailyCalories_merged_table` USING (Id)   
