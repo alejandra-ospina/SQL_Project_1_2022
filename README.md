@@ -3,7 +3,7 @@
 
 ## Welcome and thank you for visiting my page! 
 
-I will be analyzing data from public data sets and posting my SQL code here. 
+I will be analyzing data from public data sets with SQL. Let's start exploring!
 
 You can connect with me via:
 
