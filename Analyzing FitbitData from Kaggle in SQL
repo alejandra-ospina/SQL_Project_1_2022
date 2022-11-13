@@ -1,0 +1,9 @@
+## For this analysis, I am using BigQuery. I uploaded information from two CSV files about physical activity tracked by Fitbit from Kaggle into a table in BigQuery. Then I wrote the following SQL to process the data.
+
+## Begin with revewing data such as finding duplicates
+SELECT COUNT(DISTINCT ID)
+FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` 
+ 
+
+SELECT DISTINCT ID
+FROM `first-sql-to-github1.kaggle_fitbit_data.dailyActivity_merged_table` 
