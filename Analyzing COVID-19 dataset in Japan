@@ -1,0 +1,17 @@
+#In this SQL, I'm querying CVS files containing Covid-19 data from Japan in different prefectures. The files were from Kaggle and I uploaded them to BigQuery.
+#First, ordering data by highest Covid-19 cases in a day to least cases
+SELECT *
+FROM `first-sql-to-github1.kaggle_covid19_data.covid_jpn_metadata_table’
+ORDER BY DESC value
+
+#How many times were covid cases recorded in Tokyo?
+SELECT COUNT (*)
+FROM `first-sql-to-github1.kaggle_covid19_data.covid_jpn_metadata_table’
+WHERE Prefecture= Tokyo
+
+#Which were the top 10 prefectures with the most covid cases
+SELECT DISTINCT prefecture, MAX (value)
+FROM B`first-sql-to-github1.kaggle_covid19_data.covid_jpn_metadata_table’
+GROUP by Prefecture
+ORDER by Value DESC
+LIMIT 10
