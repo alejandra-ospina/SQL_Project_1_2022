@@ -1,5 +1,6 @@
-Japan is now open for travel again since the Covid-19 pandemic began. Travelers going to Japan who are in search of cheaper housing may be interested in staying in a Hostel. Besides hotels, homestays such as Airbnb, and tradition Japanese inns called Ryokans, hostels are known for being a low cost option. In this project, I will be analyzing data on Hostels in Japan in order elucidate the most popular hostels and locations to stay. 
-The data set was downloaded from Kaggle. The CVS file includes data from 300 different hostels all over Japan. I uploaded dat to BigQuery and created vizualizations with Tableau Public
+Japan is now open for travel again since the Covid-19 pandemic began. Travelers going to Japan who are in search of cheaper housing may be interested in staying in a Hostel. Besides hotels, homestays such as Airbnb, and tradition Japanese inns called Ryokans, hostels are known for being a low cost option. In this project, I will be analyzing data on Hostels in Japan in order elucidate the most popular hostels and locations to stay.
+The data set was downloaded from Kaggle. The CVS file includes data from 300 different hostels all over Japan. I uploaded data to BigQuery and created vizualizations with Tableau Public.
+
 
 #First, changing "summary.score" to "rating"
 SELECT summary.score AS rating
@@ -8,7 +9,8 @@ FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_tabl
 #Second, ordering hostels by highest rating to lowest rating
 SELECT *
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
-ORDER BY rating DESC 
+ORDER BY rating DESC
+GROUP BY City
 
 #Find how many hostels were in Tokyo?
 SELECT COUNT (*)
@@ -34,35 +36,79 @@ WHERE City= Fukuoka-City
 SELECT COUNT (*)
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
 WHERE City= Hiroshima
+COST
+
+#Find the average cost of hostels in Tokyo?
+SELECT 
+City,
+AVERAGE(Cost) AS average_cost
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Tokyo
+
+#Find the average cost of hostels in Kyoto?
+SELECT 
+City,
+AVERAGE(Cost) AS average_cost
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Kyoto
+
+#Find the average cost of hostels in Osaka?
+SELECT 
+City,
+AVERAGE(Cost) AS average_cost
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Osaka
+
+#Find the average cost of hostels in Fukuoka-City?
+SELECT 
+City,
+AVERAGE(Cost) AS average_cost
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Fukuoka-City
+
+#Find the average cost of hostels in Hiroshima?
+SELECT 
+City,
+AVERAGE(Cost) AS average_cost
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Hiroshima
 
 #Which were the Prefectures ("Cities") with the cleanest hostels
-SELECT *
+SELECT 
+City,
 AVERAGE(Cleanliness) AS average cleanliness
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
 Where City= Tokyo
 
 #Which were the Prefectures ("Cities") with the cleanest hostels
-SELECT *
+SELECT 
+City,
 AVERAGE(Cleanliness) AS average cleanliness
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
 Where City= Kyoto
 
-
-#Which were the Prefectures ("Cities") with the cleanest hostels
-SELECT *
+SELECT 
+City,
 AVERAGE(Cleanliness) AS average cleanliness
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
 Where City= Osaka
 
-#Which were the Prefectures ("Cities") with the cleanest hostels
+SELECT 
+City,
+AVERAGE(Cleanliness) AS average cleanliness
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Fukuoka
+
 SELECT *
 AVERAGE(Cleanliness) AS average cleanliness
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
-Where City= Fukuoka 
+Where City= Hiroshima
 
-#Which were the Prefectures ("Cities") with the cleanest hostels
-SELECT *
-AVERAGE(Cleanliness) AS average cleanliness
+SELECT 
+Name
+City
+MAX(Cleanliness) AS most clean
+MIN(Cleanliness) AS least clean
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
 Where City= Hiroshima
 
