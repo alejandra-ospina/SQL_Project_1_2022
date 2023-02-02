@@ -1,0 +1,152 @@
+Japan is now open for travel again since the Covid-19 pandemic began. Travelers going to Japan who are in search of cheaper housing may be interested in staying in a Hostel. Besides hotels, homestays such as Airbnb, and tradition Japanese inns called Ryokans, hostels are known for being a low cost option. In this project, I will be analyzing data on Hostels in Japan in order elucidate the most popular hostels and locations to stay.
+The data set was downloaded from Kaggle. The CVS file includes data from 300 different hostels all over Japan. I uploaded data to BigQuery and created vizualizations with Tableau Public.
+
+
+#First, changing "summary.score" to "rating"
+SELECT summary.score AS rating
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+
+#Find out how many cities are involved
+SELECT
+DISTINCT City
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+
+#Second, ordering hostels from highest rating to lowest rating
+SELECT *
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+ORDER BY rating DESC
+GROUP BY City
+
+#Find how many hostels were in Tokyo
+SELECT COUNT *
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Tokyo
+
+#Find how many hostels were in Kyoto
+SELECT COUNT *
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Kyoto
+
+#Find how many hostels were in Osaka
+SELECT COUNT *
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Osaka
+
+#Find how many hostels were in Fukuoka-City
+SELECT COUNT *
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Fukuoka-City
+
+#Find how many hostels were in Hiroshima
+SELECT COUNT *
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Hiroshima
+
+#Find the average cost of hostels in Tokyo
+SELECT 
+City,
+AVERAGE(price.from) AS average_cost_tokyo
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Tokyo
+
+#Find the average cost of hostels in Kyoto
+SELECT 
+City,
+AVERAGE(price.from) AS average_cost_kyoto
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Kyoto
+
+#Find the average cost of hostels in Osaka
+SELECT 
+City,
+AVERAGE(price.from) AS average_cost_osaka
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Osaka
+
+#Find the average cost of hostels in Fukuoka-City
+SELECT 
+City,
+AVERAGE(price.from) AS average_cost_fukuoka
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Fukuoka-City
+
+#Find the average cost of hostels in Hiroshima
+SELECT 
+City,
+AVERAGE(price.from) AS average_cost_hiroshima
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+WHERE City= Hiroshima
+
+#Which were the Prefectures ("Cities") with the cleanest hostels
+SELECT 
+City,
+AVERAGE(cleanliness) AS average_cleanliness_tokyo
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Tokyo
+
+#Which were the Prefectures ("Cities") with the cleanest hostels
+SELECT 
+City,
+AVERAGE(cleanliness) AS average_cleanliness_kyoto
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Kyoto
+
+SELECT 
+City,
+AVERAGE(cleanliness) AS average_cleanliness_osaka
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Osaka
+
+SELECT 
+City,
+AVERAGE(cleanliness) AS average_cleanliness_fukuoka
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Fukuoka-City
+
+SELECT *
+AVERAGE(cleanliness) AS average_cleanliness_hiroshima
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Hiroshima
+
+SELECT 
+hostel.name
+City
+MAX(cleanliness) AS most_clean_tokyo
+MIN(cleanliness) AS least_clean_tokyo
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Tokyo
+
+SELECT 
+hostel.name
+City
+MAX(cleanliness) AS most_clean_kyoto
+MIN(cleanliness) AS least_clean_kyoto
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Kyoto
+
+SELECT 
+hostel.name
+City
+MAX(cleanliness) AS most_clean_osaka
+MIN(cleanliness) AS least_clean_osaka
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Osaka
+
+SELECT 
+hostel.name
+City
+MAX(cleanliness) AS most_clean_fukuoka
+MIN(cleanliness) AS least_clean_fukuoka
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Fukuoka-City
+
+SELECT 
+hostel.name
+City
+MAX(cleanliness) AS most_clean_hiroshima
+MIN(cleanliness) AS least_clean_hiroshima
+FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
+Where City= Hiroshima
+
+As a results, it is seen that Osaka and Tokyo have the most expensive hostels out of the cities. Tokyo having about 116 hostels; Osaka with 89; and Kyoto with 66. Security and cleanliness was similar among the hostels with Hiroshima having the highest score for both security and cleanliness at 9.3 and 9.5 rounded respectively.
+
