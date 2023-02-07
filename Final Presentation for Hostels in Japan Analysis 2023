@@ -148,5 +148,8 @@ MIN(cleanliness) AS least_clean_hiroshima
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
 Where City= Hiroshima
 
-As a results, it is seen that Osaka and Tokyo have the most expensive hostels out of the cities. Tokyo having about 116 hostels; Osaka with 89; and Kyoto with 66. Security and cleanliness was similar among the hostels with Hiroshima having the highest score for both security and cleanliness at 9.3 and 9.5 rounded respectively.
+As a results, it is seen that Osaka and Tokyo have the most expensive hostels out of the cities. Tokyo and Osaka also have the largest number of hostels as well out of the 5 prefectures (or "Cities"). Tokyo having about 127 hostels; Osaka with 104; and Kyoto with 78. Security and cleanliness was similar among the hostels with Hiroshima having the highest score for both security and cleanliness at 9.3 and 9.5 rounded respectively.
+
+
+
 
