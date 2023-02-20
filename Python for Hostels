@@ -1,0 +1,108 @@
+# Using Python 3 environment 
+import numpy as np # linear algebra
+import pandas as pd # data processing
+        
+        %matplotlib inline
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import seaborn as sns 
+
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import RANSACRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Ridge
+from sklearn.linear_model import LassoCV
+from sklearn.linear_model import ElasticNet
+from sklearn.kernel_ridge import KernelRidge
+from sklearn.svm import SVR
+from sklearn.svm import LinearSVR
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import GradientBoostingRegressor
+from xgboost.sklearn import XGBRegressor
+from lightgbm import LGBMRegressor
+from catboost import CatBoostRegressor
+from sklearn.linear_model import SGDRegressor
+from sklearn.ensemble import VotingRegressor
+
+hostel['City'].value_counts()
+
+hostel['rating.band'].value_counts()
+
+each_city = pd.get_dummies(hostel['City'])
+rating = pd.get_dummies(hostel['rating.band'])
+
+del hostel['rating.band']
+del hostel['City']
+
+
+
+def Missing_table(df):
+    # null_val = df.isnull().sum()
+    null_val = df.isnull().sum()[df.isnull().sum()>0].sort_values(ascending=False)
+    percent = 100 * null_val/len(df)
+    na_col_list = df.isnull().sum()[df.isnull().sum()>0].index.tolist() # 欠損を含むカラムをリスト化
+    list_type = df[na_col_list].dtypes.sort_values(ascending=False) #データ型
+    Missing_table = pd.concat([null_val, percent, list_type], axis = 1)
+    missing_table_len = Missing_table.rename(
+    columns = {0:'欠損値', 1:'欠損値の割合(%)', 2:'type'})
+    return missing_table_len.sort_values(by=['欠損値'], ascending=False)
+
+Missing_table(hostel)
+
+
+hostel.drop(index=[289, 316], inplace=True)
+
+# 名前・緯度などの、価格に関係なさそうな列は削除する
+del hostel['Unnamed: 0']
+del hostel['hostel.name']
+del hostel['lon']
+del hostel['lat']
+
+
+total_hostel = pd.concat([hostel, each_city, rating], axis=1)
+
+
+
+total_hostel.dtypes.sort_values()
+
+# Distanceがobjectになっているので、数値に変換する
+# km from city centre の余計な文字列を削除
+total_hostel['Distance'] =  total_hostel['Distance'].str.replace("km from city centre", "")
+# objectをfloatに変換する
+total_hostel['Distance'] = total_hostel['Distance'].astype('float')
+
+# EDA
+total_hostel.hist(figsize = (12,12))
+
+plt.figure(figsize=(30, 40))
+sns.countplot(x='price.from', data = total_hostel)
+
+plt.figure(figsize=(15, 15))
+plt.rcParams["font.size"] = 20
+x = total_hostel['price.from']
+y = total_hostel['Distance']
+ 
+# 散布図を描画
+plt.scatter(x, y)
+plt.title("Relatonship with Distance and Price")
+plt.xlabel("Price")
+plt.ylabel("Distance")
+plt.grid(True)
+
+plt.figure(figsize=(15, 15))
+sns.distplot(total_hostel[total_hostel['Fukuoka-City']==1]['price.from'],kde=False,rug=False,bins=10,label='Fukuoka-City')
+sns.distplot(total_hostel[total_hostel['Hiroshima']==1]['price.from'],kde=False,rug=False,bins=10,label='Hiroshima')
+sns.distplot(total_hostel[total_hostel['Kyoto']==1]['price.from'],kde=False,rug=False,bins=10,label='Kyoto')
+sns.distplot(total_hostel[total_hostel['Osaka']==1]['price.from'],kde=False,rug=False,bins=10,label='Osaka')
+sns.distplot(total_hostel[total_hostel['Tokyo']==1]['price.from'],kde=False,rug=False,bins=10,label='Tokyo')
+plt.legend()
+
+train_feature = total_hostel.drop(columns='price.from')
+train_target = total_hostel['price.from']
+
+X_train, X_test, y_train, y_test = train_test_split(train_feature, train_target, test_size=0.2, random_state=0, shuffle=True)
