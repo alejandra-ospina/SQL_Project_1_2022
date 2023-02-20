@@ -2,6 +2,10 @@ Japan is now open for travel again since the Covid-19 pandemic began. Travelers 
 The data set was downloaded from Kaggle. The CVS file includes data from 300 different hostels all over Japan. I uploaded data to BigQuery and created vizualizations with Tableau Public.
 
 
+**Link to visualization**
+https://public.tableau.com/views/HostelsinJapan/Dashboard1?:language=en-US&:display_count=n&:origin=viz_share_link
+
+
 #First, changing "summary.score" to "rating"
 SELECT summary.score AS rating
 FROM `first-sql-to-github1.kaggle_Hostels_in_Japan_data.hostel_jpn_metadata_table’
